@@ -1,0 +1,63 @@
+
+/* Body Definition */
+body {
+	text-align: center;
+	height:95%;
+	min-height:95%;
+	padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* Article Text left*/
+.article{
+	 text-align: left; 
+}
+
+.downloadICON{
+	/*background-image: url(Pictures/Hanf.png);*/
+	background-repeat: no-repeat;
+	background-position: 0px 0px;  	/* equivalent to 'top left' */
+    border: none;          			/* assuming we don't want any borders */
+    cursor: pointer;       			/* make the cursor like hovering over an <a> element */
+    height: 20px;           		/* make this the size of your image */
+	vertical-align: middle;
+}
+
+/* Download Buttons*/
+.downloadBTN{
+	font-family: Arial ;
+    font-size: 18px;
+	margin: 10px 35px 10px 35px ;
+}
+
+.catlynBTN{
+	min-width: 150px;
+	font-family: Arial ;
+    font-size: 18px;
+	margin: 10px 15px 10px 15px ;
+}
+
+/* Footer Definition */
+footer {
+	position:fixed;
+	margin:0; 
+	bottom:0; 
+	left:0; 
+	display:block; 
+	width:100%; 
+	height: 40px; 
+	font-size:1em; 
+	z-index:5; 
+	overflow:hidden; 
+	background:rgb(76,76,76); 
+	color:#fff;
+}
+
+.en, .de, .it { display:none; }
+.lang { display:block; }
+
+#selectedLanguage{
+    margin-right: 10px;
+}

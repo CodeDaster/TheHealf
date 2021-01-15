@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>My Little Projects</title>
+	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">	<!-- Darstellung von Umlauten aktivieren, manchmal auch <meta charset="utf-8">	-->
+	<script src = "Script.js" charset="UTF-8"></script>								
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="SiteStyle.css">	
+	<link rel="stylesheet" type="text/css" href="scriptsPictureCoding.css">	
+</head>
+
+<body>	
+<!-- ------------------------------------------------------------------------------------------ -->	
+
+	<script>					<!-- Erstelle Navbar Header -->		
+		createMainMenu();
+	</script> 
+	
+	<div class="container">	
+		<h2> Bildbearbeitung mit Octave / Matlab</h2>
+		<div class="col-lg-1"></div>
+		<div class="col-lg-10 article">
+	
+		<div id="galerie"> 
+		<figure>
+		  <img src="Pictures/Paula_Original.jpg">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.1 : Originale Paula</small></figcaption>
+		</figure> 
+		<figure>
+		  <img src="Pictures/Paula_Derivation.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.2 : Abgeleitete Paula</small></figcaption>
+		</figure>
+		<br><h4> Die Ableitung einer Katze</h4>
+		<div>
+			Die mathematische Ableitung wird auch in der Bildbearbeitung verwendet. Mit ihrer Hilfe können Kanten detektiert werden. 
+			Daraus erzeugte und dementsprechend bearbeitete Bilder können interessante Muster erzeugen basierend darauf,
+			wo große Helligkeitsunterschiede zu sehen sind. Bei den beiden Abbildungen wurde ein Farbbild 
+			(<code>Abb.1</code>) in ein Schwarz-Weiss Bild (<code>Abb.2</code>) umgewandelt,
+			die Helligkeit wurde mit einer Histogrammequalisation angepasst und anschließend wurde die Kantendetektierung mit dem Befehl <code>edge</code>
+			durchgeführt, der uns einiges an Rechnerei abnimmt. Gut erkennbar an diesem Beispiel ist, dass Gras eine starke Kantenbildung aufweist und daher als Rauschen dargestellt wird.
+			Das script zur Bearbeitung ist unten aufgeführt und kann in Octave oder Matlab verwendet werden. 
+		</div>
+		<br>
+		<pre>
+		  <code>
+			pic = imread('Paula_Original.jpg');
+			pkg load image;
+			gray_pic = rgb2gray(pic);
+			pic_bright = 256*histeq(gray_pic);
+			pic_derivation = edge(uint8(pic_bright),'canny', 0.12);
+			imshow(pic_derivation);
+		  </code>
+		</pre>
+		<br>
+	
+<!-- ------------------------------------------------------------------------------------------ -->	
+		<figure>
+		  <img src="Pictures/Wasserfall_Original.jpg">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.3 : Originaler Wasserfall</small></figcaption>
+		</figure> 
+		<figure>
+		  <img src="Pictures/Wasserfall_Histequalised.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.4 : Histogrammequalisierter Wasserfall</small></figcaption>
+		</figure>
+		<br><h4>Die Buntifizierung eines Wasserfalls</h4>
+		<div>
+			Eine Histogrammequalisation verteilt die Helligkeit eines Bildes, wodurch ein größerer Kontrast im Bild entsteht.
+			In diesem Fall wird sie auf ein Farbbild (<code>Abb.3</code>) angewendet, was zu unnatürlichen Farbtönen führen kann.
+			Daher wird das Bild geteilt in seine Rot, Grün und Blaue Komponente, Histogramme von allen Teilbildern erstellt und 
+			mithilfe von einer Summenfunktion un der anschließenden Normalisierung wird eine Mapping-Funktion erstellt. 
+			Diese Mapping Funktion wird auf die einzelnen Bilder angewendet. Wir verwenden in diesem Fall die Mapping Funktion erstellt aus dem Grünen Bild (G2)
+			und die des roten Bildes (G1). Wenn wir nur die zugehörigen Mapping Funktionen zu den jeweiligen Farbkanälen verwenden würden (Rot -> G1, Grün -> G2, Blau -> G3),
+			würde das Blau zu stark verstärkt werden, da nur wenig Blau vorhanden ist, dieses durch die Histogrammequalisation ebenmäßiger über alle Helligkeitswerte verteilt wird.
+			Unser Bild würde also einen Blaustich bekommen. Das entstandene Bild (<code>Abb.4</code>) allerdings hat eine fast schon unnatürliche Sättigung bekommen.
+		</div>
+		<br>
+		<pre>
+		  <code>
+			pic = imread('Wasserfall_Original.jpg');
+			pkg load image;
+
+			imageRed = pic(:,:,1);
+			imageGreen = pic(:,:,2);
+			imageBlue = pic(:,:,3); imshow(imageBlue);
+
+			H1=imhist(imageRed);
+			H2=imhist(imageGreen);
+			H3=imhist(imageBlue); plot(H3);
+
+			for n=1:length(H1), G1(n)=trapz(H1(1:n));end 
+			for n=1:length(H2), G2(n)=trapz(H2(1:n));end 
+			for n=1:length(H3), G3(n)=trapz(H3(1:n));end 
+			  
+			G1=G1./max(G1).*256;
+			G2=G2./max(G2).*256;
+			G3=G3./max(G3).*256;  
+			plot(G3);
+			xlabel('alte Bildwerte')
+			ylabel('neue Bildwerte')
+
+			[height,width,z]=size(pic);
+			for a=1:height; 
+				for b=1:width;
+					imageNewRed(a,b)=G2(imageRed(a,b)+1);
+					imageNewGreen(a,b)=G2(imageGreen(a,b)+1);
+					imageNewBlue(a,b)=G1(imageBlue(a,b)+1);
+				end;
+			end; 
+
+			imageComplete(:,:,1)=uint8(imageNewRed);
+			imageComplete(:,:,2)=uint8(imageNewGreen);
+			imageComplete(:,:,3)=uint8(imageNewBlue);
+			imshow(imageComplete);
+
+		  </code>
+		</pre>
+		<figure>
+		  <img src="Pictures/Paula_Gray.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.5 : Original Graue Paula</small></figcaption>
+		</figure> 
+		<figure>
+		  <img src="Pictures/Paula_Lowpass.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.6 : Tiefpassgefilterte Paula</small></figcaption>
+		</figure>
+		<br><h4>Die Tiefpassfilterung einer Katze</h4>
+		<div>
+			Die Tiefpassfilterung entfernt hohe Frequenzen aus Signalen (Audio oder auch Bild oder andere Signale).
+			Im Bild machen sich hohe Frequenzen durch hohe Intensitätsunterschiede bemerkbar, bei unseren Bildern kann das Gras dazu gezählt werden.
+			Der Tiefpass wird durch eine <code>sinc</code> Funktion erstellt, die mit sich selbst zu einer Matrix multipliziert wird und anschließend normalisiert wird. 
+			Die entstandene Matrix wird mittels des <code>imfilter</code> Befehls auf das gesamte Bild angewendet. Mathematisch gesehen wird
+			eine Faltung durchgeführt. Das gefilterte Bild (<code>Abb.6</code>) kann nun angezeigt werden und sieht leicht verschwommen beziehungsweise unscharf aus.
+		</div>
+		<br>
+		<pre>
+		  <code>
+			pic = imread('Paula_Original.jpg');
+			pkg load image;
+
+			pic_gray = rgb2gray(pic);
+			filter_function_1= sinc(-2:0.1:2)'*sinc(-2:0.1:2);     % Tiefpassfilter
+			filter_normalized_1= filter_function_1/sum(sum(filter_function_1));
+			pic_filtered_1 = imfilter(pic_gray,filter_normalized_1);  
+			figure(1); imshow(pic_filtered_1);
+
+			filter_function_2 = ones(20);                           % Tiefpassfilter
+			filter_normalized_2 = filter_function_2/sum(sum(filter_function_2));
+			pic_filtered_2 = imfilter(pic_gray,filter_normalized_2);     
+			figure(2); imshow(pic_filtered_2);
+
+			freqz(filter_normalized_1(:,23))
+			freqz(filter_normalized_2(:,6))
+		  </code>
+		</pre>
+		<figure>
+		  <img src="Pictures/Paula_Gray.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.7 : Original Graue Paula</small></figcaption>
+		</figure>
+		<figure>
+		  <img src="Pictures/Paula_DCTed.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.8 : Paula auf DCT</small></figcaption>
+		</figure>
+		<br><h4>Die Tiefpassfilterung durch DCT Transformation</h4>
+		<div>
+			Die Tiefpassfilterung und andere Operationen kann man auch im Frequenzbereich durchführen,
+			welcher durch die Diskrete Kosinustransformation des Bildes erzeugt werden kann. 
+			Zuerst wird wieder ein Grauwertbild (<code>Abb.7</code>) erzeugt, welches mithilfe von </code>dct2</code> DCT (Discrete Cosine Transformation) transformiert
+			wird. Das entstandene Bild (<code>Abb.8</code>) zeigt nun, welche Frequenzen wie stark im Bild vertreten sind.
+			Oben links befindet sich der Gleichanteil (sehr niedrige Frequenzen, die durch eine große Fläche einheitlicher Intensität dargestellt werden)
+			und unten rechts sehr hohe Frequenzen (starke Intensitätsschwankungen zwischen nahgelegenen Pixeln).		
+		</div>
+		<figure>
+		  <img src="Pictures/Paula_Lowpassed_DCT.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.9 : Paula als DCT mit Tiefpass</small></figcaption>
+		</figure>
+		<figure>
+		  <img src="Pictures/Paula_Lowpassed_with_IDCT.png">
+		  <figcaption><br><small style="font-size:8px;position:relative;left:10%;">Abb.10 : Paula zurücktransformiert</small></figcaption>
+		</figure>
+		<div>
+			Es sieht jetzt recht nichtssagend aus, nur ein paar vereinzelte Punkte oben links sind erkennbar 
+			(Dieser Teil wurde im Script mit <code>%</code> auskommentiert, da er enormen Rechenaufwand fordert und für das Endergebnis nicht notwendig ist). 
+			Diese Punkte beschreiben jedoch die Intensität der einzelnen Frequenzen. Wir Entfernen daher alle hohen Frequenzen, indem wir
+			alle Punkte im unteren rechten Teil des Bildes auf Null setzen. So ähnlich funktionieren auch Bildkompressionsverfahren,
+			was ebenfalls im auskommentierten Teil mit einer <code>IF</code>-Klausel enthalten ist (kaum wahrnehmbare Frequenzen werden gelöscht, also gleich 0 gesetzt).
+			Die Nullsetzung wird in unserem Fall erreicht, indem wir ein schwarzes Bild erzeugen und die ersten Werte (192 Pixel horizontal und 144 vertikal)
+			unseres DCT-Bildes übernehmen. Jetzt ist nur noch ein kleiner Block im oberen linken Bildrand zu erkennen (<code>Abb.9</code>).
+			Nun muss das Bild nur noch zurücktransformiert werden mit der inversen DCT (<code>idct</code> Befehl).
+			Obwohl wir massive Änderungen vorgenommen haben, hat sich das Bild (<code>Abb.10</code>) kaum verändert, außer das es wieder verschwommen ist.
+		</div>
+		<br>
+		<pre>
+		  <code>
+			pic = imread('Paula_Original.jpg');
+			pkg load image;
+			pkg install -forge signal
+			pkg load signal
+
+			pic_gray = rgb2gray(pic);
+			pic_dct = dct2(pic_gray);
+			[a,b] = size(pic_dct);
+			
+			%for n=1:a
+			%    for k=1:b
+			%        	pic_TP_dct(n,k) = pic_dct(n,k);
+			%			if pic_TP_dct(n,k)<30 pic_dct(n,k)=0;end
+			%    end
+			%end
+			%imshow(uint8(pic_TP_dct))
+			
+			pic_TP_dct = zeros(a,b);
+			for n=1:144
+				for k=1:192
+					pic_TP_dct(n,k) = pic_dct(n,k);
+				end
+			end
+
+			pic_TP=idct2(pic_TP_dct);
+			imshow(uint8(pic_TP))
+		  </code>
+		</pre>
+
+		
+		</div>	
+		<div class="col-lg-1"></div>
+	</div>	
+			
+<!-- ------------------------------------------------------------------------------------------ -->	
+	<script>					<!-- Erstelle Footer -->		
+		createFooter();
+	</script> 
+
+</body>
+</html>

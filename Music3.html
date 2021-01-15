@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>My Little Projects</title>
+	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">	<!-- Darstellung von Umlauten aktivieren, manchmal auch <meta charset="utf-8">	-->
+	<script src = "Script.js" charset="UTF-8"></script>								
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="SiteStyle.css">			
+	<script src="changeLanguage.js"></script>	
+	<script type="text/javascript">
+		function abspielen(){   
+			document.getElementById("player").volume=.5;
+			document.getElementById("player").play();	
+		}
+	</script>
+</head>
+
+<body>	
+<!-- ------------------------------------------------------------------------------------------ -->	
+	<script>					<!-- Erstelle Navbar Header -->		
+		createMainMenu();
+	</script> 
+	
+	<audio id="player"><source src="Music/QuantumZibet/D4.mp3" type="audio/mpeg"></audio>
+	
+<div class="container de lang">
+	<h1>	Quantum Zibet </h1>
+	 <div class="col-lg-2"></div>
+	 <div class="col-lg-8 article">
+		<br>
+			Eins der ersten Stücke, welches außerdem einstimmig geblieben sind.
+			Quantum Zibet ist gut zu spielen, sobald man erstmal den Rythmus herausgefunden hat.
+			<br><u>Wichtig:</u> Tiefe E-Seite auf 
+			<span name="playD" width="128" height="128" id="playD" title="Anhören" style="cursor: pointer" onClick="abspielen()" /><b>D4 (oder d')</b></span>
+			stimmen (einen Ganzton tiefer). 
+			<h4>	Viel Spass beim üben. </h4>
+		<img src="Music/QuantumZibet/QuantumZibet-001.png" alt="Irgendetwas funktioniert bei dir nicht..." style="width:100%;height:auto"> 
+	</div>
+	<div class="col-sm-2"></div>
+</div>
+<div class="container en">	</div>
+<div class="container it">	</div>
+<!-- ------------------------------------------------------------------------------------------ -->	
+	<script>					<!-- Erstelle Footer -->		
+		createFooter();
+	</script> 
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+#galerie {
+background:#ffffff;
+-moz-border-radius:20px;
+border-radius:20px;
+padding:50px;
+}
+
+#galerie figure {
+float:left;
+background:#ffffff;
+width: 200px;
+max-height: 200px;
+margin:25px 25px;
+padding:10px 10px 30px 10px;
+opacity:0.8;
+-moz-box-shadow: 0 0 5px 2px #ccc;
+-webkit-box-shadow: 0 0 5px 2px #ccc;
+box-shadow: 0 0 5px 2px #ccc;
+-webkit-transform: rotate(-2deg);  /* Saf3.1+, Chrome */
+-moz-transform: rotate(-2deg);  /* FF3.5+ */
+-o-transform: rotate(-2deg);  /* Opera */
+transform: rotate(-2deg);
+-webkit-transition: all 0.4s ease-out;	/* Saf3.1+, Chrome */
+-moz-transition: all 0.4s ease-out;	/* FF3.5+ */
+-o-transition: all 0.4s ease-out;	/* Opera */
+transition: all 0.4s ease-out;
+}
+#galerie img {
+display: inline;
+margin-left: auto;
+margin-right: auto;
+width: 150px;
+max-height: 150px;
+}
+#galerie figure:nth-of-type(2n) {
+float:right;
+-webkit-transform: rotate(2deg);  /* Saf3.1+, Chrome */
+-moz-transform: rotate(2deg);  /* FF3.5+ */
+-o-transform: rotate(2deg);  /* Opera */
+transform: rotate(2deg);
+}
+
+#galerie figure:hover {
+opacity:1;
+padding:5px 5px 5px 5px;
+position:relative;
+z-index:1;
+-moz-box-shadow: 2px 2px 5px #888;
+-webkit-box-shadow: 2px 2px 5px #888;
+box-shadow: 2px 2px 5px #888;
+-webkit-transform: rotate(0deg) scale(3);  /* Saf3.1+, Chrome */
+-moz-transform: rotate(0deg) scale(3);  /* FF3.5+ */
+-o-transform: rotate(0deg) scale(3);  /* Opera */
+transform: rotate(0deg) scale(3);
+}

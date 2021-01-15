@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>My Little Projects</title>
+	<script src = "Script.js" charset="UTF-8"></script>							<!-- Einfügung eines externen Javascriptes (mit Umlautdarstellung) -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="SiteStyle.css">
+	<script src="changeLanguage.js"></script>
+</head>
+
+<body>	
+<!-- ------------------------------------------------------------------------------------------ -->	
+	<script>					<!-- Erstelle Navbar Header -->		
+		createMainMenu();
+	</script> 
+
+<div class="container de lang">
+	 <h2>	Acoustic Mirror 	</h2>	
+	 <div class="col-sm-2"></div>
+	 <div class="col-sm-8 article">
+	
+			<h3>	Beschreibung	</h3>
+			Acoustic Mirror ist ein von mir in Java geschriebenes Raumsimulations-Programm, welches dazu dient,
+			anhand der Größe eines gegebenen Raumes akustische Eigenschaften (wie z.B die Raummoden und die Nachhallzeit) zu berechnen. 
+			Der größte Stolz ist das eingebaute Spiegelquellenmodell, welches eine Raumimpulsantwort aus den Raumparametern erzeugt.
+			<br>
+			
+			<h3>	Download	</h3>
+			Acoustic Mirror liegt als ausführbare .jar Datei vor. Ein einfaches herunterladen und ausführen des Programms genügt,
+			sowohl für den Windows als auch für den Mac Betrieb. Es werden keine zusätzlichen Dateien installiert. 
+			<br>
+			<button class="downloadBTN" onclick="location.href='Programs/AcousticMirror.jar'"><img src="Pictures/AcousticMirrorICON.png" class="downloadICON" alt="" > Acoustic Mirror</button>
+			<br>
+			
+			<h3> 	Informationen	</h3>
+			Das programmieren von Acoustic Mirror hat 3 Wochen Zeit in Anspruch genommen. Der mathematisch-akustische Aufwand war hierbei eine
+			große Herausforderung. Jedoch kann sich das Programm bis hier sehen lassen. Es gibt allerdings auch noch einige 
+			(mir bekannte) Bugs und das Programm ist aus einer objektorientierten sowie dokumentarischen Sicht noch reichlich unausgewogen.
+			Wenn ich Zeit finde, werde ich die Fehler ausbessern und Acoustic Mirror gegebenenfalls erweitern. Es wird nicht gewährleistet,
+			dass das Programm, für welche Zwecke auch immer, verlässliche Werte liefert, welche zum professionellen Abschätzen von Räumen geeignet sind.
+			Das verwendete Spiegelquellenmodell ist einfach und es wurde eine einfache Faltung statt einer FFT durchgeführt, was die Ladezeiten enorm 
+			steigert.
+			<br>
+			
+			<h3> 	Vorschau	</h3>
+			<img width="100%" height="100%" src="Pictures/Example.png" class="" alt="" > 
+		</div>
+	
+	<div class="col-sm-2"></div>
+</div>
+
+<div class="container en"></div>
+<div class="container it">	</div>
+<!-- ------------------------------------------------------------------------------------------ -->	
+	<script>					<!-- Erstelle Footer -->		
+		createFooter();
+	</script> 
+
+</body>
+</html>

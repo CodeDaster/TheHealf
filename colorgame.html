@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+	 <meta charset="UTF-8">
+	<title>Color Game - My Little Projects</title>
+	<script src = "Script.js" charset="UTF-8"></script>							<!-- Einfügung eines externen Javascriptes (mit Umlautdarstellung) -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="SiteStyle.css">
+	<link rel="stylesheet" type="text/css" href="colorgame.css">
+</head>
+
+<body>	
+<!-- ------------------------------------------------------------------------------------------ -->	
+	<script>					<!-- Erstelle Navbar Header -->		
+		createMainMenu();
+	</script> 
+		
+
+<div class="container">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+		<h2>The Great Color Game<br><span id="colorDisplay">RGB</span></h2>
+	<div  id="stripe">
+
+		<button id="reset">New Colors</button>
+		<span id="message"></span>
+
+		<button class="mode">EASY</button>
+		<button class="mode selected">MEDIUM</button>
+		<button class="mode">HARD</button>
+
+	</div>
+		
+		<div id="gameContainer">
+			<div class="square"></div>
+			<div class="square"></div>
+			<div class="square"></div>
+			<div class="square"></div>
+			<div class="square"></div>
+			<div class="square"></div>
+			<div class="square"></div>
+			<div class="square"></div>
+			<div class="square"></div>
+		</div>
+	
+	</div>
+	
+	<div class="col-sm-2" >
+		<h4 id="colorCounter" class="colorCounter">
+			Bereits <span id="gamesWon"></span> Farben von 16777216 (256<sup>3</sup>) möglichen Farben gefunden. 
+		</h4>
+		<h4 id="colorCounterEasy" class="colorCounter">
+			Durchschnittliche Versuche Easy: <br><b><span id="avgTryEasy"></span></b>
+		</h4>
+		<h4 id="colorCounterMedium" class="colorCounter">
+			Durchschnittliche Versuche Medium: <br><b><span id="avgTryMedium"></span></b>
+		</h4>
+		<h4 id="colorCounterHard" class="colorCounter">
+			Durchschnittliche Versuche Hard: <br><b><span id="avgTryHard"></span></b>
+		</h4>
+	</div>
+	<!-- ------------------------------------------------------------------------------------------ -->	
+	<script>					<!-- Erstelle Footer -->		
+		createFooter();
+	</script> 
+</body>
+<scripts> 
+ <script src="colorgame.js"></script>
+</scripts>
+</html>
+
